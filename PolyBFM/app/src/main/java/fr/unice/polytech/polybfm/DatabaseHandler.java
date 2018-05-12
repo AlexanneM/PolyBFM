@@ -17,7 +17,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     static final String ISSUE_CATEGORY = "category";
     static final String ISSUE_DATE = "date";
     static final String ISSUE_PHOTO = "photo";
-    static final String ISSUE_VIEW = "view";
+    static final String ISSUE_VIEWED = "viewed";
 
     static final String ISSUE_TABLE_NAME = "Issue";
     static final String ISSUE_TABLE_CREATE =
@@ -29,7 +29,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     ISSUE_CATEGORY + " TEXT, " +
                     ISSUE_DATE + " TEXT, " +
                     ISSUE_PHOTO + " TEXT, " +
-                    ISSUE_VIEW + " INTEGER);";
+                    ISSUE_VIEWED + " INTEGER);";
     static final String ISSUE_TABLE_DROP = "DROP TABLE IF EXISTS " + ISSUE_TABLE_NAME + ";";
 
     public DatabaseHandler(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
