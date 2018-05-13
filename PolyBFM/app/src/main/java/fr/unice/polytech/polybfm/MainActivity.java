@@ -148,6 +148,10 @@ public class MainActivity extends AppCompatActivity {
                 return TakePhotoFragment.newInstance();
             }
 
+            if(position == 0) {
+                return DeclarationFragment.newInstance();
+            }
+
             return PlaceholderFragment.newInstance(position + 1);
         }
 

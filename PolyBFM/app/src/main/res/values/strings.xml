@@ -1,8 +1,17 @@
 <resources>
     <string name="app_name">PolyBFM</string>
-    <string name="tab_text_1">Tab 1</string>
-    <string name="tab_text_2">Tab 2</string>
-    <string name="tab_text_3">Tab 3</string>
+    <string name="tab_text_1">Visualisation</string>
+    <string name="tab_text_2">Déclaration</string>
+    <string name="tab_text_3">Supprimés</string>
     <string name="action_settings">Settings</string>
     <string name="section_format">Hello World from section: %1$d</string>
+    <string name="labelCatégorie">Catégorie</string>
+    <string name="labelTitre">Titre</string>
+    <string name="labelLieu">Lieu</string>
+    <string name="labelUrgence">Urgence</string>
+    <string name="lieu"></string>
+    <string name="titre"></string>
+    <string name="urgence"></string>
+    <string name="categorie"></string>
+    <string name="déclarer">Déclarer</string>
 </resources>

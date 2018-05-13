@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/photo"
+        android:layout_width="385dp"
+        android:layout_height="250dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="30dp"
+        app:layout_constraintBottom_toTopOf="@+id/imageButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/urgence"
+        app:srcCompat="@mipmap/ic_launcher" />
+
+    <ImageButton
+        android:id="@+id/imageButton"
+        android:layout_width="60dp"
+        android:layout_height="33dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@android:drawable/sym_def_app_icon" />
+
+    <TextView
+        android:id="@+id/labelCatégorie"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_marginBottom="60dp"
+        android:layout_marginStart="5dp"
+        android:inputType=""
+        android:text="@string/labelCatégorie"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/labelTitre"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_marginTop="50dp"
+        android:inputType=""
+        android:text="@string/labelTitre"
+        app:layout_constraintStart_toStartOf="@id/labelCatégorie"
+        app:layout_constraintTop_toTopOf="@id/labelCatégorie" />
+
+    <TextView
+        android:id="@+id/labelLieu"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_marginTop="50dp"
+        android:inputType=""
+        android:text="@string/labelLieu"
+        app:layout_constraintStart_toStartOf="@id/labelTitre"
+        app:layout_constraintTop_toTopOf="@id/labelTitre" />
+
+    <TextView
+        android:id="@+id/labelUrgence"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_marginTop="50dp"
+        android:inputType=""
+        android:text="@string/labelUrgence"
+        app:layout_constraintStart_toStartOf="@id/labelLieu"
+        app:layout_constraintTop_toTopOf="@id/labelLieu" />
+
+    <EditText
+        android:id="@+id/lieu"
+        android:layout_width="203dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="50dp"
+        android:text="@string/lieu"
+        app:layout_constraintStart_toStartOf="@id/titre"
+        app:layout_constraintTop_toTopOf="@id/titre" />
+
+    <EditText
+        android:id="@+id/categorie"
+        android:layout_width="203dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="100dp"
+        android:text="@string/categorie"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/titre"
+        android:layout_width="203dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="50dp"
+        android:text="@string/titre"
+        app:layout_constraintStart_toStartOf="@id/categorie"
+        app:layout_constraintTop_toTopOf="@id/categorie" />
+
+    <EditText
+        android:id="@+id/urgence"
+        android:layout_width="203dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="50dp"
+        android:text="@string/urgence"
+        app:layout_constraintStart_toStartOf="@id/lieu"
+        app:layout_constraintTop_toTopOf="@id/lieu" />
+
+    <Button
+        android:id="@+id/déclarer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/déclarer"
+        app:layout_constraintTop_toBottomOf="@id/photo"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent" />
+
+</android.support.constraint.ConstraintLayout>
