@@ -54,7 +54,7 @@ public class TakePhotoFragment extends Fragment {
             public void onClick(View view) {
                 Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 file = Uri.fromFile(getOutputMediaFile());
-                intent.putExtra(MediaStore.EXTRA_OUTPUT, file);
+                //intent.putExtra(MediaStore.EXTRA_OUTPUT, file);
 
                 startActivityForResult(intent, 100);
             }
