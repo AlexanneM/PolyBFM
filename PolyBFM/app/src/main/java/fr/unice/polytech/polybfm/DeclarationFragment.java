@@ -1,17 +1,26 @@
 package fr.unice.polytech.polybfm;
 
+import android.Manifest;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
+import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 
 import java.util.Calendar;
+
+import static android.app.Activity.RESULT_OK;
 
 public class DeclarationFragment extends Fragment {
 
@@ -23,6 +32,8 @@ public class DeclarationFragment extends Fragment {
     private String ISSUE_DATE;
     private String ISSUE_PHOTO = "placeholder Photo";
     private int ISSUE_VIEWED = 0;
+    private Button imageButton;
+    private ImageView photo;
 
     public DeclarationFragment() {}
 
@@ -61,6 +72,31 @@ public class DeclarationFragment extends Fragment {
                 addEvent();
             }
         });
+        imageButton = rootView.findViewById(R.id.prendrePhoto);
+        photo = rootView.findViewById(R.id.photo);
+
+
+        if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            imageButton.setEnabled(false);
+            requestPermissions(new String[] { Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE }, 0);
+        }
+        imageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                //Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                //file = Uri.fromFile(getOutputMediaFile());
+                //intent.putExtra(MediaStore.EXTRA_OUTPUT, file);
+                //startActivityForResult(intent, 100);
+
+                Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
+                    startActivityForResult(takePictureIntent, 1);
+                }
+
+            }
+
+        });
 
         return rootView;
     }
@@ -69,5 +105,24 @@ public class DeclarationFragment extends Fragment {
         DatabaseHandler handler = new DatabaseHandler(getContext(), "DBpolyBFM", null, 2);
         SQLiteDatabase db = handler.getWritableDatabase();
         db.rawQuery("INSERT INTO Issue (title, reporter, emergency, category, place, date, photo, viewed) VALUES ('"+ISSUE_TITLE+"', '"+ISSUE_REPORTER+"', '"+ISSUE_EMERGENCY+"', '"+ISSUE_CATEGORY+"', '"+ISSUE_PLACE+"', '"+ISSUE_DATE+"', '"+ISSUE_PHOTO+"', '"+ISSUE_VIEWED+"')",null);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == 1 && resultCode == RESULT_OK) {
+            Bundle extras = data.getExtras();
+            Bitmap imageBitmap = (Bitmap) extras.get("data");
+            photo.setImageBitmap(imageBitmap);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        if (requestCode == 0) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED
+                    && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
+                imageButton.setEnabled(true);
+            }
+        }
     }
 }
