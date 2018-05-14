@@ -9,12 +9,13 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.app.NotificationCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.R.drawable;
+
 
 /**
  * Created by Baptiste on 12/05/2018.
@@ -43,10 +44,18 @@ public class TestNotifFragment extends Fragment {
         Button button = rootView.findViewById(R.id.buttonTest);
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                myNotification = new Notification.Builder(rootView.getContext())
+                Intent intent = new Intent(getContext(),MainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                PendingIntent pendingIntent = PendingIntent.getActivity(rootView.getContext(), 0, intent, 0);
+
+                myNotification = new NotificationCompat.Builder(rootView.getContext())
+                        .setSmallIcon(R.drawable.sample)
+                        .setDefaults(Notification.DEFAULT_ALL)
+                        .setPriority(NotificationCompat.PRIORITY_HIGH)
                         .setContentTitle("New issues")
                         .setContentText("New issues : "+numberOfIssues())
-                        .setSmallIcon(R.drawable.sample)
+                        .setContentIntent(pendingIntent)
+                        .setAutoCancel(true)
                         .build();
 
 
