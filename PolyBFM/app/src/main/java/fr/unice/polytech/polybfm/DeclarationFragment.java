@@ -1,17 +1,27 @@
 package fr.unice.polytech.polybfm;
 
+import android.Manifest;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
+import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 
+import java.io.IOException;
 import java.util.Calendar;
+
+import static android.app.Activity.RESULT_OK;
 
 public class DeclarationFragment extends Fragment {
 
@@ -23,6 +33,9 @@ public class DeclarationFragment extends Fragment {
     private String ISSUE_DATE;
     private String ISSUE_PHOTO = "placeholder Photo";
     private int ISSUE_VIEWED = 0;
+    private Button imageButton;
+    private ImageView photo;
+    private Button gallerie;
 
     public DeclarationFragment() {}
 
@@ -61,6 +74,35 @@ public class DeclarationFragment extends Fragment {
                 addEvent();
             }
         });
+        imageButton = rootView.findViewById(R.id.prendrePhoto);
+        photo = rootView.findViewById(R.id.photo);
+
+
+        if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            imageButton.setEnabled(false);
+            gallerie.setEnabled(false);
+            requestPermissions(new String[] { Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE }, 0);
+        }
+        imageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
+                    startActivityForResult(takePictureIntent, 1);
+                }
+            }
+        });
+
+        gallerie = rootView.findViewById(R.id.gallerie);
+        gallerie.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent gallerypickerIntent = new Intent(Intent.ACTION_PICK);
+                gallerypickerIntent.setType("image/*");
+                startActivityForResult(gallerypickerIntent, 2);
+            }
+
+        });
 
         return rootView;
     }
@@ -69,5 +111,37 @@ public class DeclarationFragment extends Fragment {
         DatabaseHandler handler = new DatabaseHandler(getContext(), "DBpolyBFM", null, 2);
         SQLiteDatabase db = handler.getWritableDatabase();
         db.rawQuery("INSERT INTO Issue (title, reporter, emergency, category, place, date, photo, viewed) VALUES ('"+ISSUE_TITLE+"', '"+ISSUE_REPORTER+"', '"+ISSUE_EMERGENCY+"', '"+ISSUE_CATEGORY+"', '"+ISSUE_PLACE+"', '"+ISSUE_DATE+"', '"+ISSUE_PHOTO+"', '"+ISSUE_VIEWED+"')",null);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == 1 && resultCode == RESULT_OK) {
+            Bundle extras = data.getExtras();
+            Bitmap imageBitmap = (Bitmap) extras.get("data");
+            photo.setImageBitmap(imageBitmap);
+        }
+        if (requestCode == 2 && resultCode == RESULT_OK){
+            Bitmap bm = null;
+            if (data != null) {
+                try {
+                    bm = MediaStore.Images.Media.getBitmap(getActivity().getApplicationContext().getContentResolver(), data.getData());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            photo.setImageBitmap(bm);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        if (requestCode == 0) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED
+                    && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
+                imageButton.setEnabled(true);
+                gallerie.setEnabled(true);
+            }
+        }
+
     }
 }

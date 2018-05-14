@@ -14,4 +14,6 @@
     <string name="urgence"></string>
     <string name="categorie"></string>
     <string name="déclarer">Déclarer</string>
+    <string name="prendre_une_photo">Photo</string>
+    <string name="photo_depuis_gallerie">Gallerie</string>
 </resources>
