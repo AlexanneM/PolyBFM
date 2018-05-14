@@ -15,6 +15,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     static final String ISSUE_REPORTER = "reporter";
     static final String ISSUE_EMERGENCY = "emergency";
     static final String ISSUE_CATEGORY = "category";
+    static final String ISSUE_PLACE = "place";
     static final String ISSUE_DATE = "date";
     static final String ISSUE_PHOTO = "photo";
     static final String ISSUE_VIEWED = "viewed";
@@ -27,6 +28,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     ISSUE_REPORTER + " TEXT, " +
                     ISSUE_EMERGENCY + " TEXT, " +
                     ISSUE_CATEGORY + " TEXT, " +
+                    ISSUE_PLACE + " TEXT, " +
                     ISSUE_DATE + " TEXT, " +
                     ISSUE_PHOTO + " TEXT, " +
                     ISSUE_VIEWED + " INTEGER);";

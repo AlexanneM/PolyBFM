@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.R.drawable;
 
 /**
  * Created by Baptiste on 12/05/2018.
@@ -47,7 +48,7 @@ public class TestNotifFragment extends Fragment {
                 myNotification = new Notification.Builder(rootView.getContext())
                         .setContentTitle("New issues")
                         .setContentText("New issues : "+numberOfIssues())
-                        .setSmallIcon(R.drawable.ic_launcher_background)
+                        .setSmallIcon(R.drawable.sample)
                         .build();
 
 
