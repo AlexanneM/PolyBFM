@@ -18,6 +18,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 
+import java.io.IOException;
 import java.util.Calendar;
 
 import static android.app.Activity.RESULT_OK;
@@ -34,6 +35,7 @@ public class DeclarationFragment extends Fragment {
     private int ISSUE_VIEWED = 0;
     private Button imageButton;
     private ImageView photo;
+    private Button gallerie;
 
     public DeclarationFragment() {}
 
@@ -83,17 +85,20 @@ public class DeclarationFragment extends Fragment {
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                //Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                //file = Uri.fromFile(getOutputMediaFile());
-                //intent.putExtra(MediaStore.EXTRA_OUTPUT, file);
-                //startActivityForResult(intent, 100);
-
                 Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
                     startActivityForResult(takePictureIntent, 1);
                 }
+            }
+        });
 
+        gallerie = rootView.findViewById(R.id.gallerie);
+        gallerie.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent gallerypickerIntent = new Intent(Intent.ACTION_PICK);
+                gallerypickerIntent.setType("image/*");
+                startActivityForResult(gallerypickerIntent, 2);
             }
 
         });
@@ -113,6 +118,18 @@ public class DeclarationFragment extends Fragment {
             Bundle extras = data.getExtras();
             Bitmap imageBitmap = (Bitmap) extras.get("data");
             photo.setImageBitmap(imageBitmap);
+        }
+        if (requestCode == 2 && resultCode == RESULT_OK){
+            Bitmap bm=null;
+            if (data != null) {
+                try {
+                    bm = MediaStore.Images.Media.getBitmap(getActivity().getApplicationContext().getContentResolver(), data.getData());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            photo.setImageBitmap(bm);
         }
     }
 
