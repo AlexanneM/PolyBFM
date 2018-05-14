@@ -70,11 +70,12 @@
         android:id="@+id/titre"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
         android:layout_marginStart="100dp"
+        android:layout_marginTop="40dp"
         android:text="@string/titre"
         app:layout_constraintStart_toStartOf="@id/categorie"
-        app:layout_constraintTop_toTopOf="@id/categorie" />
+        app:layout_constraintTop_toTopOf="@id/categorie"
+        android:maxLength="24"/>
 
     <EditText
         android:id="@+id/lieu"
@@ -84,7 +85,8 @@
         android:layout_marginStart="100dp"
         android:text="@string/lieu"
         app:layout_constraintStart_toStartOf="@id/titre"
-        app:layout_constraintTop_toTopOf="@id/titre" />
+        app:layout_constraintTop_toTopOf="@id/titre"
+        android:maxLength="24"/>
 
     <Spinner
         android:id="@+id/urgence"
@@ -101,7 +103,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="33dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:text="@string/déclarer"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
