@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="category_array">
+        <item>Autre</item>
+        <item>Casse</item>
+        <item>Eau</item>
+        <item>Electricité</item>
+        <item>Ménage</item>
+    </string-array>
+
+    <string-array name="emergency_array">
+        <item>Urgence faible</item>
+        <item>Urgence moyenne</item>
+        <item>Urgence forte</item>
+    </string-array>
+</resources>

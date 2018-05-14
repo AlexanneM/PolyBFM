@@ -97,7 +97,7 @@
         app:layout_constraintTop_toTopOf="@id/lieu" />
 
     <Button
-        android:id="@+id/déclarer"
+        android:id="@+id/declarer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="33dp"

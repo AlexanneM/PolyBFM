@@ -43,8 +43,6 @@ public class TestNotifFragment extends Fragment {
         Button button = rootView.findViewById(R.id.buttonTest);
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                textView.setText("WAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-
                 myNotification = new Notification.Builder(rootView.getContext())
                         .setContentTitle("New issues")
                         .setContentText("New issues : "+numberOfIssues())
@@ -60,7 +58,7 @@ public class TestNotifFragment extends Fragment {
     }
 
     private int numberOfIssues(){
-        DatabaseHandler handler = new DatabaseHandler(getContext(), "DBpolyBFM", null, 1);
+        DatabaseHandler handler = new DatabaseHandler(getContext(), "DBpolyBFM", null, 2);
         SQLiteDatabase db = handler.getWritableDatabase();
         Cursor cursor = db.rawQuery("SELECT COUNT(*) FROM Issue WHERE viewed = 0",null);
         cursor.moveToFirst();
