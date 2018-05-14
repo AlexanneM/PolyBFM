@@ -80,6 +80,7 @@ public class DeclarationFragment extends Fragment {
 
         if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
             imageButton.setEnabled(false);
+            gallerie.setEnabled(false);
             requestPermissions(new String[] { Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE }, 0);
         }
         imageButton.setOnClickListener(new View.OnClickListener() {
@@ -120,7 +121,7 @@ public class DeclarationFragment extends Fragment {
             photo.setImageBitmap(imageBitmap);
         }
         if (requestCode == 2 && resultCode == RESULT_OK){
-            Bitmap bm=null;
+            Bitmap bm = null;
             if (data != null) {
                 try {
                     bm = MediaStore.Images.Media.getBitmap(getActivity().getApplicationContext().getContentResolver(), data.getData());
@@ -128,7 +129,6 @@ public class DeclarationFragment extends Fragment {
                     e.printStackTrace();
                 }
             }
-
             photo.setImageBitmap(bm);
         }
     }
@@ -139,7 +139,9 @@ public class DeclarationFragment extends Fragment {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED
                     && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
                 imageButton.setEnabled(true);
+                gallerie.setEnabled(true);
             }
         }
+
     }
 }
