@@ -37,6 +37,7 @@ public class DeclarationFragment extends Fragment {
     private ImageView photo;
     private Button gallerie;
 
+
     public DeclarationFragment() {}
 
     public static DeclarationFragment newInstance() {
@@ -79,17 +80,24 @@ public class DeclarationFragment extends Fragment {
 
 
         if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-            imageButton.setEnabled(false);
-            gallerie.setEnabled(false);
             requestPermissions(new String[] { Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE }, 0);
         }
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
-                    startActivityForResult(takePictureIntent, 1);
+                if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                    requestPermissions(new String[] { Manifest.permission.CAMERA}, 0);
                 }
+                if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                    requestPermissions(new String[] {  Manifest.permission.WRITE_EXTERNAL_STORAGE }, 1);
+                }
+                if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+                    Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                    if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
+                        startActivityForResult(takePictureIntent, 10);
+                    }
+                }
+
             }
         });
 
@@ -97,9 +105,18 @@ public class DeclarationFragment extends Fragment {
         gallerie.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent gallerypickerIntent = new Intent(Intent.ACTION_PICK);
-                gallerypickerIntent.setType("image/*");
-                startActivityForResult(gallerypickerIntent, 2);
+                if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                    requestPermissions(new String[] { Manifest.permission.CAMERA}, 0);
+                }
+                if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                    requestPermissions(new String[] {  Manifest.permission.WRITE_EXTERNAL_STORAGE }, 1);
+                }
+
+                if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+                    Intent gallerypickerIntent = new Intent(Intent.ACTION_PICK);
+                    gallerypickerIntent.setType("image/*");
+                    startActivityForResult(gallerypickerIntent, 20);
+                }
             }
 
         });
@@ -115,12 +132,12 @@ public class DeclarationFragment extends Fragment {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == 1 && resultCode == RESULT_OK) {
+        if (requestCode == 10 && resultCode == RESULT_OK) {
             Bundle extras = data.getExtras();
             Bitmap imageBitmap = (Bitmap) extras.get("data");
             photo.setImageBitmap(imageBitmap);
         }
-        if (requestCode == 2 && resultCode == RESULT_OK){
+        if (requestCode == 20 && resultCode == RESULT_OK){
             Bitmap bm = null;
             if (data != null) {
                 try {
@@ -136,10 +153,13 @@ public class DeclarationFragment extends Fragment {
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         if (requestCode == 0) {
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED
-                    && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
-                imageButton.setEnabled(true);
-                gallerie.setEnabled(true);
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+            }
+        }
+        if (requestCode == 1) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
             }
         }
 
