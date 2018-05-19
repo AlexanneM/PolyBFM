@@ -1,4 +1,4 @@
 <paths>
     <external-path
-        name="my_image" path="Android/data/fr.unice.polytech.polybfm/files/Pictures"/>
+        name="my_image" path="Pictures"/>
 </paths>

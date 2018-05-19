@@ -22,15 +22,11 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
-
-import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Locale;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -48,8 +44,6 @@ public class DeclarationFragment extends Fragment {
     private Button imageButton;
     private ImageView photo;
     private Button gallerie;
-    private String mCurrentPhotoPath;
-    private Uri file;
     private String photoPath;
 
 
@@ -111,23 +105,15 @@ public class DeclarationFragment extends Fragment {
                 if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
                     Intent takePictureIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
                     if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
-                        File photoFile = null;
-                        try {
-                            photoFile = createImageFile();
-                        } catch (IOException ex) {
-                            Toast toast = Toast.makeText(getActivity(), "There was a problem saving the photo...", Toast.LENGTH_SHORT);
-                            toast.show();
-                        }
-                        if (photoFile != null) {
-                            photoPath = photoFile.getAbsolutePath();
-                            Uri photoUri = FileProvider.getUriForFile(getContext(),"com.example.android.fileprovider", photoFile);
-                            takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri);
-                            startActivityForResult(takePictureIntent, 10);
-                        }
+
+                        File photoFile = getOutputMediaFile();
+                        photoPath = photoFile.getAbsolutePath();
+                        Uri photoUri = FileProvider.getUriForFile(getContext(),"com.example.android.fileprovider", photoFile);
+                        takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri);
+                        startActivityForResult(takePictureIntent, 10);
+
                     }
                 }
-
-
             }
 
         });
@@ -151,7 +137,6 @@ public class DeclarationFragment extends Fragment {
             }
 
         });
-
         return rootView;
     }
 
@@ -163,38 +148,47 @@ public class DeclarationFragment extends Fragment {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent intent){
-            if(requestCode==10&&resultCode==RESULT_OK){
-                ImageView photo = getView().findViewById(R.id.photo);
-                photo.setImageBitmap(BitmapFactory.decodeFile(photoPath));
+        ImageView photo = getView().findViewById(R.id.photo);
+        if(requestCode==10&&resultCode==RESULT_OK){
+            galleryAddPic();
+            photo.setImageBitmap(BitmapFactory.decodeFile(photoPath));
 
-            }
-            if(requestCode==20&&resultCode==RESULT_OK){
-                Bitmap bm=null;
-                if(intent!=null){
-                    try{
-                        bm=MediaStore.Images.Media.getBitmap(getActivity().getApplicationContext().getContentResolver(),intent.getData());
-                    }catch(IOException e){
-                        e.printStackTrace();
-                    }
+        }
+        if(requestCode==20&&resultCode==RESULT_OK){
+            Bitmap bm=null;
+            if(intent!=null){
+                try{
+                    bm=MediaStore.Images.Media.getBitmap(getActivity().getApplicationContext().getContentResolver(),intent.getData());
+                }catch(IOException e){
+                    e.printStackTrace();
                 }
-                photo.setImageBitmap(bm);
             }
-            super.onActivityResult(requestCode,resultCode,intent);
+            photo.setImageBitmap(bm);
+            }
+
     }
 
+    private void galleryAddPic() {
+        Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+        File f = new File(photoPath);
+        Uri contentUri = Uri.fromFile(f);
+        mediaScanIntent.setData(contentUri);
+        getActivity().sendBroadcast(mediaScanIntent);
+    }
 
-    private File createImageFile() throws IOException {
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.FRENCH).format(Calendar.getInstance().getTime());
-        String imageFileName = "JPEG_" + timeStamp + "_";
-        File storageDir = getActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-        File image = File.createTempFile(
-        imageFileName,
-        ".jpg",
-        storageDir
-        );
+    private static File getOutputMediaFile(){
+        File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(
+                Environment.DIRECTORY_PICTURES), "PolyBFM");
 
-        mCurrentPhotoPath = image.getAbsolutePath();
-        return image;
+        if (!mediaStorageDir.exists()){
+            if (!mediaStorageDir.mkdirs()){
+                return null;
+            }
+        }
+
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        return new File(mediaStorageDir.getPath() + File.separator +
+                "IMG_"+ timeStamp + ".jpg");
     }
 
 }
