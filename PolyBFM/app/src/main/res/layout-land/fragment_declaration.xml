@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+
+    <TextView
+        android:id="@+id/labelCatégorie"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:inputType=""
+        android:text="@string/labelCatégorie"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop ="20dp"/>
+
+    <TextView
+        android:id="@+id/labelTitre"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:inputType=""
+        android:text="@string/labelTitre"
+        app:layout_constraintStart_toStartOf="@id/labelCatégorie"
+        app:layout_constraintTop_toTopOf="@id/labelCatégorie" />
+
+    <TextView
+        android:id="@+id/labelLieu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:inputType=""
+        android:text="@string/labelLieu"
+        app:layout_constraintStart_toStartOf="@id/labelTitre"
+        app:layout_constraintTop_toTopOf="@id/labelTitre" />
+
+    <TextView
+        android:id="@+id/labelUrgence"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:inputType=""
+        android:text="@string/labelUrgence"
+        app:layout_constraintStart_toStartOf="@id/labelLieu"
+        app:layout_constraintTop_toTopOf="@id/labelLieu" />
+
+    <Spinner
+        android:id="@+id/categorie"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="100dp"
+        android:text="@string/categorie"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/labelCatégorie"
+        app:layout_constraintBottom_toBottomOf="@id/labelCatégorie"
+        />
+
+    <EditText
+        android:id="@+id/titre"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="100dp"
+        android:text="@string/titre"
+        app:layout_constraintStart_toStartOf="@id/categorie"
+        app:layout_constraintTop_toTopOf="@id/labelTitre"
+        app:layout_constraintBottom_toBottomOf="@id/labelTitre"
+        android:maxLength="24"/>
+
+    <EditText
+        android:id="@+id/lieu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="100dp"
+        android:text="@string/lieu"
+        app:layout_constraintStart_toStartOf="@id/titre"
+        app:layout_constraintTop_toTopOf="@id/labelLieu"
+        app:layout_constraintBottom_toBottomOf="@id/labelLieu"
+        android:maxLength="24"/>
+
+    <Spinner
+        android:id="@+id/urgence"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="100dp"
+        android:text="@string/urgence"
+        app:layout_constraintStart_toStartOf="@id/lieu"
+        app:layout_constraintTop_toTopOf="@id/labelUrgence"
+        app:layout_constraintBottom_toBottomOf="@id/labelUrgence"/>
+
+        <Button
+            android:id="@+id/prendrePhoto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/prendre_une_photo"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/gallerie"
+            app:layout_constraintTop_toBottomOf="@id/labelUrgence"
+            android:layout_marginTop ="20dp"/>
+        <Button
+            android:id="@+id/gallerie"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/photo_depuis_gallerie"
+            app:layout_constraintTop_toBottomOf="@id/prendrePhoto"
+            app:layout_constraintBottom_toTopOf="@id/photo"
+            android:layout_marginBottom ="5dp"/>
+
+        <ImageView
+            android:id="@+id/photo"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            app:layout_constraintBottom_toTopOf="@id/declarer"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:srcCompat="@mipmap/ic_launcher"
+            tools:layout_editor_absoluteX="20dp" />
+
+        <Button
+            android:id="@+id/declarer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="50dp"
+            android:text="@string/déclarer"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
+
+
+    </android.support.constraint.ConstraintLayout>
+</ScrollView>
