@@ -149,6 +149,7 @@ public class DeclarationFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent intent){
         ImageView photo = getView().findViewById(R.id.photo);
+        ISSUE_PHOTO = photoPath;
         if(requestCode==10&&resultCode==RESULT_OK){
             galleryAddPic();
             photo.setImageBitmap(BitmapFactory.decodeFile(photoPath));
