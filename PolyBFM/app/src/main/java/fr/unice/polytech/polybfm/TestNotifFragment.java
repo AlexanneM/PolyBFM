@@ -48,12 +48,14 @@ public class TestNotifFragment extends Fragment {
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 PendingIntent pendingIntent = PendingIntent.getActivity(rootView.getContext(), 0, intent, 0);
 
+                int x = numberOfIssues();
+
                 myNotification = new NotificationCompat.Builder(rootView.getContext())
                         .setSmallIcon(R.drawable.sample)
                         .setDefaults(Notification.DEFAULT_ALL)
                         .setPriority(NotificationCompat.PRIORITY_HIGH)
                         .setContentTitle("New issues")
-                        .setContentText("New issues : "+numberOfIssues())
+                        .setContentText("New issues : "+x )
                         .setContentIntent(pendingIntent)
                         .setAutoCancel(true)
                         .build();
@@ -67,11 +69,13 @@ public class TestNotifFragment extends Fragment {
     }
 
     private int numberOfIssues(){
-        DatabaseHandler handler = new DatabaseHandler(getContext(), "DBpolyBFM", null, 3);
+        DatabaseHandler handler = new DatabaseHandler(getActivity().getApplicationContext(), "DBpolyBFM", null, 3);
         SQLiteDatabase db = handler.getWritableDatabase();
         //Cursor cursor = db.rawQuery("SELECT COUNT(*) FROM Issue WHERE viewed = 0",null);
         Cursor cursor = db.rawQuery("SELECT COUNT(*) AS _id FROM Issue",null);
         cursor.moveToFirst();
-        return cursor.getInt(0);
+        int x = cursor.getInt(0);
+        db.close();
+        return x;
     }
 }

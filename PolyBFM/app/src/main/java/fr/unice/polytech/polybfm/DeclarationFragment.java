@@ -160,9 +160,10 @@ public class DeclarationFragment extends Fragment {
     }
 
     private void addEvent(){
-        DatabaseHandler handler = new DatabaseHandler(getContext(), "DBpolyBFM", null, 3);
+        DatabaseHandler handler = new DatabaseHandler(getActivity().getApplicationContext(), "DBpolyBFM", null, 3);
         SQLiteDatabase db = handler.getWritableDatabase();
-        db.rawQuery("INSERT INTO Issue (title, reporter, emergency, category, place, date, photo, viewed, deleted) VALUES ('"+ISSUE_TITLE+"', '"+ISSUE_REPORTER+"', '"+ISSUE_EMERGENCY+"', '"+ISSUE_CATEGORY+"', '"+ISSUE_PLACE+"', '"+ISSUE_DATE+"', '"+ISSUE_PHOTO+"', '"+ISSUE_VIEWED+"', '"+ISSUE_DELETED+"')",null);
+        db.execSQL("INSERT INTO Issue (title, reporter, emergency, category, place, date, photo, viewed, deleted) VALUES ('"+ISSUE_TITLE+"', '"+ISSUE_REPORTER+"', '"+ISSUE_EMERGENCY+"', '"+ISSUE_CATEGORY+"', '"+ISSUE_PLACE+"', '"+ISSUE_DATE+"', '"+ISSUE_PHOTO+"', '"+ISSUE_VIEWED+"', '"+ISSUE_DELETED+"')");
+        db.close();
     }
 
     @Override
