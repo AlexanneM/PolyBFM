@@ -21,7 +21,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
-import android.widget.Toast;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -32,6 +31,8 @@ import static android.app.Activity.RESULT_OK;
 
 
 public class DeclarationFragment extends Fragment {
+
+
 
     private String ISSUE_TITLE;
     private String ISSUE_REPORTER = "placeholder reporter";
@@ -45,6 +46,8 @@ public class DeclarationFragment extends Fragment {
     private ImageView photo;
     private Button gallerie;
     private String photoPath;
+    private Bitmap bitmap;
+
 
 
     public DeclarationFragment() {}
@@ -54,10 +57,11 @@ public class DeclarationFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
         final View rootView = inflater.inflate(R.layout.fragment_declaration, container, false);
+
         Spinner Categorie = (Spinner) rootView.findViewById(R.id.categorie);
         Spinner Urgence = (Spinner) rootView.findViewById(R.id.urgence);
         ArrayAdapter<CharSequence> categoryAdapter = ArrayAdapter.createFromResource(rootView.getContext(), R.array.category_array, android.R.layout.simple_spinner_item);
@@ -80,6 +84,7 @@ public class DeclarationFragment extends Fragment {
                 ISSUE_PLACE = Lieu.getText().toString();
                 ISSUE_EMERGENCY = Urgence.toString();
                 ISSUE_DATE = Calendar.getInstance().getTime().toString();
+                ISSUE_PHOTO = photoPath;
 
                 addEvent();
             }
@@ -137,6 +142,16 @@ public class DeclarationFragment extends Fragment {
             }
 
         });
+
+        if (savedInstanceState != null) {
+            //if there is a bundle, use the saved image resource (if one is there)
+            bitmap = savedInstanceState.getParcelable("BitmapImage");
+            if(bitmap != null){
+                photo.setImageBitmap(bitmap);
+                photoPath = savedInstanceState.getString("path_to_picture");
+            }
+
+        }
         return rootView;
     }
 
@@ -148,23 +163,23 @@ public class DeclarationFragment extends Fragment {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent intent){
-        ImageView photo = getView().findViewById(R.id.photo);
-        ISSUE_PHOTO = photoPath;
-        if(requestCode==10&&resultCode==RESULT_OK){
+
+        if(requestCode==10 && resultCode==RESULT_OK){
             galleryAddPic();
+            bitmap = BitmapFactory.decodeFile(photoPath);
             photo.setImageBitmap(BitmapFactory.decodeFile(photoPath));
 
         }
         if(requestCode==20&&resultCode==RESULT_OK){
-            Bitmap bm=null;
+            bitmap = null;
             if(intent!=null){
                 try{
-                    bm=MediaStore.Images.Media.getBitmap(getActivity().getApplicationContext().getContentResolver(),intent.getData());
+                    bitmap = MediaStore.Images.Media.getBitmap(getActivity().getApplicationContext().getContentResolver(),intent.getData());
                 }catch(IOException e){
                     e.printStackTrace();
                 }
             }
-            photo.setImageBitmap(bm);
+            photo.setImageBitmap(bitmap);
             }
 
     }
@@ -191,5 +206,16 @@ public class DeclarationFragment extends Fragment {
         return new File(mediaStorageDir.getPath() + File.separator +
                 "IMG_"+ timeStamp + ".jpg");
     }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        if(bitmap != null){
+            outState.putParcelable("BitmapImage", bitmap);
+            outState.putString("path_to_picture", photoPath);
+        }
+
+    }
+
 
 }
