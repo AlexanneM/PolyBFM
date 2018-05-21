@@ -146,10 +146,12 @@ public class DeclarationFragment extends Fragment {
         if (savedInstanceState != null) {
             //if there is a bundle, use the saved image resource (if one is there)
             bitmap = savedInstanceState.getParcelable("BitmapImage");
-            photo.setImageBitmap(bitmap);
-            photoPath = savedInstanceState.getString("path_to_picture");
-        }
+            if(bitmap != null){
+                photo.setImageBitmap(bitmap);
+                photoPath = savedInstanceState.getString("path_to_picture");
+            }
 
+        }
         return rootView;
     }
 
@@ -161,6 +163,7 @@ public class DeclarationFragment extends Fragment {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent intent){
+
         if(requestCode==10 && resultCode==RESULT_OK){
             galleryAddPic();
             bitmap = BitmapFactory.decodeFile(photoPath);
@@ -207,8 +210,11 @@ public class DeclarationFragment extends Fragment {
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putParcelable("BitmapImage", bitmap);
-        outState.putString("path_to_picture", photoPath);
+        if(bitmap != null){
+            outState.putParcelable("BitmapImage", bitmap);
+            outState.putString("path_to_picture", photoPath);
+        }
+
     }
 
 
