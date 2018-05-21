@@ -10,7 +10,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class DatabaseHandler extends SQLiteOpenHelper {
     //following are the different data inside the table
-    static final String ISSUE_KEY = "id";
+    static final String ISSUE_KEY = "_id";
     static final String ISSUE_TITLE = "title";
     static final String ISSUE_REPORTER = "reporter";
     static final String ISSUE_EMERGENCY = "emergency";
@@ -19,6 +19,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     static final String ISSUE_DATE = "date";
     static final String ISSUE_PHOTO = "photo";
     static final String ISSUE_VIEWED = "viewed";
+    static final String ISSUE_DELETED = "deleted";
 
     static final String ISSUE_TABLE_NAME = "Issue";
     static final String ISSUE_TABLE_CREATE =
@@ -31,7 +32,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     ISSUE_PLACE + " TEXT, " +
                     ISSUE_DATE + " TEXT, " +
                     ISSUE_PHOTO + " TEXT, " +
-                    ISSUE_VIEWED + " INTEGER);";
+                    ISSUE_VIEWED + " INTEGER, " +
+                    ISSUE_DELETED + " INTEGER);";
     static final String ISSUE_TABLE_DROP = "DROP TABLE IF EXISTS " + ISSUE_TABLE_NAME + ";";
 
     public DatabaseHandler(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {

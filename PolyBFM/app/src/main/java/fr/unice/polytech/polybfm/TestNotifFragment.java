@@ -67,9 +67,10 @@ public class TestNotifFragment extends Fragment {
     }
 
     private int numberOfIssues(){
-        DatabaseHandler handler = new DatabaseHandler(getContext(), "DBpolyBFM", null, 2);
+        DatabaseHandler handler = new DatabaseHandler(getContext(), "DBpolyBFM", null, 3);
         SQLiteDatabase db = handler.getWritableDatabase();
-        Cursor cursor = db.rawQuery("SELECT COUNT(*) FROM Issue WHERE viewed = 0",null);
+        //Cursor cursor = db.rawQuery("SELECT COUNT(*) FROM Issue WHERE viewed = 0",null);
+        Cursor cursor = db.rawQuery("SELECT COUNT(*) AS _id FROM Issue",null);
         cursor.moveToFirst();
         return cursor.getInt(0);
     }

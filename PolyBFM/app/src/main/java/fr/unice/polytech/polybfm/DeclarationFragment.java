@@ -21,6 +21,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 import java.io.File;
 import java.io.IOException;
@@ -41,6 +42,7 @@ public class DeclarationFragment extends Fragment {
     private String ISSUE_DATE;
     private String ISSUE_PHOTO = "placeholder Photo";
     private int ISSUE_VIEWED = 0;
+    private int ISSUE_DELETED =0;
     private Button imageButton;
     private ImageView photo;
     private Button gallerie;
@@ -82,6 +84,7 @@ public class DeclarationFragment extends Fragment {
                 ISSUE_DATE = Calendar.getInstance().getTime().toString();
 
                 addEvent();
+                ( (TextView) rootView.findViewById(R.id.labelLieu)).setText("Test");
             }
         });
         imageButton = rootView.findViewById(R.id.prendrePhoto);
@@ -141,9 +144,9 @@ public class DeclarationFragment extends Fragment {
     }
 
     private void addEvent(){
-        DatabaseHandler handler = new DatabaseHandler(getContext(), "DBpolyBFM", null, 2);
+        DatabaseHandler handler = new DatabaseHandler(getContext(), "DBpolyBFM", null, 3);
         SQLiteDatabase db = handler.getWritableDatabase();
-        db.rawQuery("INSERT INTO Issue (title, reporter, emergency, category, place, date, photo, viewed) VALUES ('"+ISSUE_TITLE+"', '"+ISSUE_REPORTER+"', '"+ISSUE_EMERGENCY+"', '"+ISSUE_CATEGORY+"', '"+ISSUE_PLACE+"', '"+ISSUE_DATE+"', '"+ISSUE_PHOTO+"', '"+ISSUE_VIEWED+"')",null);
+        db.rawQuery("INSERT INTO Issue (title, reporter, emergency, category, place, date, photo, viewed, deleted) VALUES ('"+ISSUE_TITLE+"', '"+ISSUE_REPORTER+"', '"+ISSUE_EMERGENCY+"', '"+ISSUE_CATEGORY+"', '"+ISSUE_PLACE+"', '"+ISSUE_DATE+"', '"+ISSUE_PHOTO+"', '"+ISSUE_VIEWED+"', '"+ISSUE_DELETED+"')",null);
     }
 
     @Override
