@@ -11,7 +11,7 @@
         android:layout_width="400dp"
         android:layout_height="match_parent"
         android:layout_alignParentEnd="true"
-        android:layout_below="@id/imageNewIncidentVisu"
+        android:layout_alignParentTop="true"
         app2:srcCompat="@drawable/appareil_photo" />
 
     <TextView
@@ -60,9 +60,6 @@
 
     <ImageView
         android:id="@+id/imageNewIncidentVisu"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentTop="true"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        app2:srcCompat="@drawable/logo_notif"/>
+        android:layout_width="0dp"
+        android:layout_height="0dp" />
 </RelativeLayout>
