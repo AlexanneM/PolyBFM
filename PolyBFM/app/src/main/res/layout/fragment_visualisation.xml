@@ -19,8 +19,8 @@
 
             <ImageView
                 android:id="@+id/imageCategorieVisu"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
                 app2:srcCompat="@mipmap/ic_launcher" />
@@ -43,11 +43,11 @@
 
             <ImageView
                 android:id="@+id/imageNewIncidentVisu"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentTop="true"
-                app2:srcCompat="@mipmap/ic_launcher" />
+                app2:srcCompat="@drawable/logo_notif" />
 
             <TextView
                 android:id="@+id/urgenceVisu"
