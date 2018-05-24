@@ -67,12 +67,12 @@ public class VisualisationAdapter extends ArrayAdapter<Issue> {
         titre.setText(issue.getTitle());
         lieu.setText(issue.getPlace());
 
-        newIncident.setImageDrawable(newIncident.getContext().getResources().getDrawable(R.drawable.logo_notif));
+        /*newIncident.setImageDrawable(getContext().getResources().getDrawable(R.drawable.logo_notif));
         if (issue.isViewed()) {
             newIncident.setVisibility(View.INVISIBLE);
         } else {
             newIncident.setVisibility(View.VISIBLE);
-        }
+        }*/
 
         urgence.setText(issue.getEmergency());
         if (issue.getEmergency().endsWith("faible")) {

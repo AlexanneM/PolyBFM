@@ -67,7 +67,7 @@ public class VisuFragment extends Fragment {
         cursor.moveToFirst();
 
         while (! cursor.isAfterLast()) {
-            /*int key = cursor.getInt(0);
+            int key = cursor.getInt(0);
             String title = cursor.getString(1);
             String reporter = cursor.getString(2);
             String emergency = cursor.getString(3);
@@ -78,8 +78,7 @@ public class VisuFragment extends Fragment {
             boolean viewed = cursor.getInt(8)==1;
             boolean deleted = cursor.getInt(9)==1;
 
-            Issue issue = new Issue(key, title, reporter, emergency, category, place, date, pathToPhoto, viewed, deleted);*/
-            Issue issue = new Issue(1,"sdq","sdq","sdq","sdq","sdq","sdq","sdq",true,true);
+            Issue issue = new Issue(key, title, reporter, emergency, category, place, date, pathToPhoto, viewed, deleted);
             liste.add(issue);
             cursor.moveToNext();
         }
