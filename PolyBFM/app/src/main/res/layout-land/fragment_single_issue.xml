@@ -4,7 +4,10 @@
     xmlns:app2="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp">
+    android:padding="16dp"
+    android:descendantFocusability="blocksDescendants"
+    android:clickable="false"
+    android:focusable="false">
 
     <ImageView
         android:id="@+id/photoVisu"
@@ -56,8 +59,8 @@
 
     <ImageButton
         android:id="@+id/boutonSupprimer"
-        android:layout_width="75dp"
-        android:layout_height="75dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
         app2:srcCompat="@drawable/poubelle" />

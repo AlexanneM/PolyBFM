@@ -51,6 +51,33 @@ public class DataBaseHelper {
         return liste;
     }
 
+    public List<Issue> getDeletedIssues(){
+        List<Issue> liste = new ArrayList<>();
+        openDB();
+        Cursor cursor = db.rawQuery("SELECT * FROM Issue WHERE deleted = 1",null);
+        cursor.moveToFirst();
+
+        while (! cursor.isAfterLast()) {
+            int key = cursor.getInt(0);
+            String title = cursor.getString(1);
+            String reporter = cursor.getString(2);
+            String emergency = cursor.getString(3);
+            String category = cursor.getString(4);
+            String place = cursor.getString(5);
+            String date = cursor.getString(6);
+            String pathToPhoto = cursor.getString(7);
+            boolean viewed = cursor.getInt(8)==1;
+            boolean deleted = cursor.getInt(9)==1;
+
+            Issue issue = new Issue(key, title, reporter, emergency, category, place, date, pathToPhoto, viewed, deleted);
+            liste.add(issue);
+            cursor.moveToNext();
+        }
+        cursor.close();
+        db.close();
+        return liste;
+    }
+
     public int numberOfIssues(){
         openDB();
         Cursor cursor = db.rawQuery("SELECT COUNT(*) AS _id FROM Issue WHERE viewed = 0 and deleted = 0",null);
