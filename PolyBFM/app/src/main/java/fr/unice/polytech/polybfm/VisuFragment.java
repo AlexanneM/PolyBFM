@@ -8,8 +8,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.GridView;
+import android.widget.ListView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,7 +41,7 @@ public class VisuFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.fragment_visu, container, false);
-        ((GridView) rootView.findViewById(R.id.gridview)).setAdapter(visualisationAdapter);
+        ((ListView) rootView.findViewById(R.id.listView)).setAdapter(visualisationAdapter);
         return rootView;
     }
 
@@ -52,7 +51,7 @@ public class VisuFragment extends Fragment {
         try{
             List<Issue> liste = getIssuesFromDB();
             visualisationAdapter = new VisualisationAdapter(getActivity().getApplicationContext(), liste);
-            ((GridView) getActivity().findViewById(R.id.gridview)).setAdapter(visualisationAdapter);
+            ((ListView) getActivity().findViewById(R.id.listView)).setAdapter(visualisationAdapter);
         }catch (Exception e){}
     }
 

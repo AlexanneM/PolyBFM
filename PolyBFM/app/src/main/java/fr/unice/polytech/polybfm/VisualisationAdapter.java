@@ -29,7 +29,7 @@ public class VisualisationAdapter extends ArrayAdapter<Issue> {
         LayoutInflater inflater = (LayoutInflater) getContext()
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         if (convertView == null) {
-            convertView = inflater.inflate(R.layout.fragment_visualisation, null);
+            convertView = inflater.inflate(R.layout.fragment_single_issue, null);
         }
 
         Issue issue = getItem(position);
