@@ -14,11 +14,11 @@ import android.support.v4.app.NotificationCompat;
  */
 
 public class NotificationHelper {
-    Notification myNotification;
-    Context currentContext;
-    String notifTitre;
-    String notifTexte;
-    int newEvents;
+    private Notification myNotification;
+    private Context currentContext;
+    private String notifTitre;
+    private String notifTexte;
+    private int newEvents;
 
     public NotificationHelper(Context context, String notifTitre, String notifTexte){
         this.currentContext = context;
@@ -51,8 +51,7 @@ public class NotificationHelper {
     private int numberOfIssues(){
         DatabaseHandler handler = new DatabaseHandler(currentContext, "DBpolyBFM", null, 3);
         SQLiteDatabase db = handler.getWritableDatabase();
-        //Cursor cursor = db.rawQuery("SELECT COUNT(*) FROM Issue WHERE viewed = 0",null);
-        Cursor cursor = db.rawQuery("SELECT COUNT(*) AS _id FROM Issue",null);
+        Cursor cursor = db.rawQuery("SELECT COUNT(*) AS _id FROM Issue WHERE viewed = 0",null);
         cursor.moveToFirst();
         int x = cursor.getInt(0);
         db.close();
