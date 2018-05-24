@@ -82,11 +82,12 @@ public class DeclarationFragment extends Fragment {
                 EditText Lieu = (EditText) rootView.findViewById(R.id.lieu);
                 Spinner Urgence = (Spinner) rootView.findViewById(R.id.urgence);
 
-                ISSUE_CATEGORY = Categorie.toString();
+                ISSUE_CATEGORY = String.valueOf(Categorie.getSelectedItem());
                 ISSUE_TITLE = Titre.getText().toString();
                 ISSUE_PLACE = Lieu.getText().toString();
-                ISSUE_EMERGENCY = Urgence.toString();
-                ISSUE_DATE = Calendar.getInstance().getTime().toString();
+                ISSUE_EMERGENCY = String.valueOf(Urgence.getSelectedItem());
+                String temp = String.valueOf(Calendar.getInstance().getTime());
+                ISSUE_DATE = temp.substring(0,16);
                 ISSUE_PHOTO = photoPath;
 
                 addEvent();
