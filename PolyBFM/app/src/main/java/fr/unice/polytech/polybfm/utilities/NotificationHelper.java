@@ -1,4 +1,4 @@
-package fr.unice.polytech.polybfm;
+package fr.unice.polytech.polybfm.utilities;
 
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -6,6 +6,10 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.NotificationCompat;
+
+import fr.unice.polytech.polybfm.MainActivity;
+import fr.unice.polytech.polybfm.R;
+import fr.unice.polytech.polybfm.utilities.DataBaseHelper;
 
 /**
  * Created by Baptiste on 24/05/2018.

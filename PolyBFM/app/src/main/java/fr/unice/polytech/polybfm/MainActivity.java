@@ -11,6 +11,9 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import fr.unice.polytech.polybfm.fragments.DeclarationFragment;
+import fr.unice.polytech.polybfm.fragments.VisuFragment;
+
 public class MainActivity extends AppCompatActivity {
 
     /**

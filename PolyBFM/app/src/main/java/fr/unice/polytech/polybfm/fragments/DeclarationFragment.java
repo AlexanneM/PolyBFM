@@ -1,4 +1,4 @@
-package fr.unice.polytech.polybfm;
+package fr.unice.polytech.polybfm.fragments;
 
 import android.Manifest;
 import android.content.Intent;
@@ -26,6 +26,12 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+
+import fr.unice.polytech.polybfm.MainActivity;
+import fr.unice.polytech.polybfm.R;
+import fr.unice.polytech.polybfm.model.Issue;
+import fr.unice.polytech.polybfm.utilities.DataBaseHelper;
+import fr.unice.polytech.polybfm.utilities.NotificationHelper;
 
 import static android.app.Activity.RESULT_OK;
 

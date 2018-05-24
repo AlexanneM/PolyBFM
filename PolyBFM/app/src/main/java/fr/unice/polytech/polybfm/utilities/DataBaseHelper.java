@@ -1,4 +1,4 @@
-package fr.unice.polytech.polybfm;
+package fr.unice.polytech.polybfm.utilities;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -6,6 +6,8 @@ import android.database.sqlite.SQLiteDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import fr.unice.polytech.polybfm.model.Issue;
 
 /**
  * Created by Baptiste on 24/05/2018.
@@ -20,7 +22,7 @@ public class DataBaseHelper {
     }
 
     private void openDB(){
-        DatabaseHandler handler = new DatabaseHandler(context, "DBpolyBFM", null, 4);
+        DatabaseHandler handler = new DatabaseHandler(context, "DBpolyBFM", null, 5);
         db = handler.getWritableDatabase();
     }
 

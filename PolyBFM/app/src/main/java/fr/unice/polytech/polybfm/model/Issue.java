@@ -1,4 +1,4 @@
-package fr.unice.polytech.polybfm;
+package fr.unice.polytech.polybfm.model;
 
 public class Issue {
     private int key;
@@ -12,7 +12,7 @@ public class Issue {
     private boolean viewed;
     private boolean deleted;
 
-    Issue(int key, String title, String reporter, String emergency, String category, String place, String date, String pathToPhoto, boolean viewed, boolean deleted) {
+    public Issue(int key, String title, String reporter, String emergency, String category, String place, String date, String pathToPhoto, boolean viewed, boolean deleted) {
         this.key = key;
         this.title = title;
         this.reporter = reporter;

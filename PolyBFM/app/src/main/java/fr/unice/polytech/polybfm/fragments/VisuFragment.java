@@ -1,4 +1,4 @@
-package fr.unice.polytech.polybfm;
+package fr.unice.polytech.polybfm.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,6 +11,12 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import java.util.List;
+
+import fr.unice.polytech.polybfm.DetailActivity;
+import fr.unice.polytech.polybfm.R;
+import fr.unice.polytech.polybfm.utilities.VisualisationAdapter;
+import fr.unice.polytech.polybfm.model.Issue;
+import fr.unice.polytech.polybfm.utilities.DataBaseHelper;
 
 /**
  * Created by Baptiste on 24/05/2018.

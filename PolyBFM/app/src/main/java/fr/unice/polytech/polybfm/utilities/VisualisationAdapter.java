@@ -1,4 +1,4 @@
-package fr.unice.polytech.polybfm;
+package fr.unice.polytech.polybfm.utilities;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -10,16 +10,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
 
+import fr.unice.polytech.polybfm.R;
+import fr.unice.polytech.polybfm.model.Issue;
+
 
 public class VisualisationAdapter extends ArrayAdapter<Issue> {
     Bitmap bitmap;
-    VisualisationAdapter(Context context, List<Issue> issues) {
+    public VisualisationAdapter(Context context, List<Issue> issues) {
         super(context, 0, issues);
     }
 

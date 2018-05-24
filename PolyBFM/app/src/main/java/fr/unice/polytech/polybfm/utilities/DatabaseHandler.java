@@ -1,4 +1,4 @@
-package fr.unice.polytech.polybfm;
+package fr.unice.polytech.polybfm.utilities;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
