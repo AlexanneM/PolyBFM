@@ -16,6 +16,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import static android.support.v4.graphics.drawable.IconCompat.createWithAdaptiveBitmap;
+
 
 /**
  * Created by Baptiste on 12/05/2018.
@@ -51,11 +53,11 @@ public class TestNotifFragment extends Fragment {
                 int x = numberOfIssues();
 
                 myNotification = new NotificationCompat.Builder(rootView.getContext())
-                        .setSmallIcon(R.drawable.sample)
+                        .setSmallIcon(R.drawable.logo_notif)
                         .setDefaults(Notification.DEFAULT_ALL)
                         .setPriority(NotificationCompat.PRIORITY_HIGH)
-                        .setContentTitle("New issues")
-                        .setContentText("New issues : "+x )
+                        .setContentTitle("Nouveaux événements")
+                        .setContentText(""+x+" nouveaux événements déclarés" )
                         .setContentIntent(pendingIntent)
                         .setAutoCancel(true)
                         .build();
