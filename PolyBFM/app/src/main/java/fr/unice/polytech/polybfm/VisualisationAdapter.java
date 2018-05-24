@@ -17,8 +17,7 @@ import java.util.List;
 
 
 public class VisualisationAdapter extends ArrayAdapter<Issue> {
-    private Bitmap bitmap;
-
+    Bitmap bitmap;
     VisualisationAdapter(Context context, List<Issue> issues) {
         super(context, 0, issues);
     }
@@ -43,6 +42,7 @@ public class VisualisationAdapter extends ArrayAdapter<Issue> {
         TextView date = convertView.findViewById(R.id.dateVisu);
         ImageView photo = convertView.findViewById(R.id.photoVisu);
         ImageView notViewed = convertView.findViewById(R.id.imageNewIncidentVisu);
+
 
         assert issue != null;
         String categorie = issue.getCategory();
@@ -90,7 +90,6 @@ public class VisualisationAdapter extends ArrayAdapter<Issue> {
         } else {
             notViewed.setVisibility(View.VISIBLE);
         }
-
         return convertView;
     }
 }
