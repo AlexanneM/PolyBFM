@@ -31,13 +31,21 @@ public class NotificationHelper {
         PendingIntent pendingIntent = PendingIntent.getActivity(currentContext, 0, intent, 0);
 
         newEvents = new DataBaseHelper(currentContext).numberOfIssues();
+        if(newEvents==1){
+            notifTexte=" nouvel événement déclaré";
+            notifTitre="Nouvel évenement";
+        }
+        else{
+            notifTexte=" nouveaux événement déclaré";
+            notifTitre="Nouveaux évenement";
+        }
 
         myNotification = new NotificationCompat.Builder(currentContext)
                 .setSmallIcon(R.drawable.logo_notif)
                 .setDefaults(Notification.DEFAULT_ALL)
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
-                .setContentTitle("Nouveaux événements")
-                .setContentText(""+newEvents+" nouveaux événements déclarés")
+                .setContentTitle(notifTitre)
+                .setContentText(""+newEvents+notifTexte)
                 .setContentIntent(pendingIntent)
                 .setAutoCancel(true)
                 .build();
