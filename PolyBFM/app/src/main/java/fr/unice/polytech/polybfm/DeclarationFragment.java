@@ -90,6 +90,7 @@ public class DeclarationFragment extends Fragment {
 
                 Issue issue = new Issue(0,ISSUE_TITLE,ISSUE_REPORTER,ISSUE_EMERGENCY,ISSUE_CATEGORY,ISSUE_PLACE,ISSUE_DATE,ISSUE_PHOTO,false,false);
                 new DataBaseHelper(getContext()).addNewEvent(issue);
+                new NotificationHelper(getContext(),String.valueOf(R.string.notif_titre),String.valueOf(R.string.notif_texte)).sendNotification();
             }
         });
         imageButton = rootView.findViewById(R.id.prendrePhoto);

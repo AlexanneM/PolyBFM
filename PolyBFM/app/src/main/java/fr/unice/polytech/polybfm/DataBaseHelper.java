@@ -53,7 +53,7 @@ public class DataBaseHelper {
 
     public int numberOfIssues(){
         openDB();
-        Cursor cursor = db.rawQuery("SELECT COUNT(*) AS _id FROM Issue WHERE viewed = 0",null);
+        Cursor cursor = db.rawQuery("SELECT COUNT(*) AS _id FROM Issue WHERE viewed = 0 and deleted = 0",null);
         cursor.moveToFirst();
         int x = cursor.getInt(0);
         cursor.close();

@@ -36,8 +36,8 @@ public class NotificationHelper {
                 .setSmallIcon(R.drawable.logo_notif)
                 .setDefaults(Notification.DEFAULT_ALL)
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
-                .setContentTitle(notifTitre)
-                .setContentText(""+newEvents+notifTexte)
+                .setContentTitle("Nouveaux événements")
+                .setContentText(""+newEvents+" nouveaux événements déclarés")
                 .setContentIntent(pendingIntent)
                 .setAutoCancel(true)
                 .build();
