@@ -65,4 +65,12 @@ public class Issue {
     public boolean isDeleted() {
         return deleted;
     }
+
+    public void viewIssue(){
+        this.viewed=true;
+    }
+
+    public void deleteIssue(){
+        this.deleted=true;
+    }
 }

@@ -55,9 +55,13 @@ public class VisuFragment extends Fragment {
             ((ListView) getActivity().findViewById(R.id.listView)).setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    Issue issue = (Issue) parent.getItemAtPosition(position);
+
+                    new DataBaseHelper(getContext()).viewEvent(issue.getKey());
+                    issue.viewIssue();
+
                     Intent intent = new Intent(getContext(),DetailActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_PREVIOUS_IS_TOP);
-                    Issue issue = (Issue) parent.getItemAtPosition(position);
                     intent.putExtra("key",issue.getKey());
                     intent.putExtra("title",issue.getTitle());
                     intent.putExtra("reporter",issue.getReporter());

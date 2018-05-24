@@ -1,10 +1,13 @@
 package fr.unice.polytech.polybfm;
 
+import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -66,5 +69,14 @@ public class DetailActivity extends AppCompatActivity {
                 photo.setImageBitmap(BitmapFactory.decodeFile(path));
             }catch (Exception e){}
         }
+
+        ImageButton button = findViewById(R.id.boutonSupprimer);
+        button.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                new DataBaseHelper(getApplicationContext()).deleteEvent(getIntent().getIntExtra("key",0));
+                Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 }

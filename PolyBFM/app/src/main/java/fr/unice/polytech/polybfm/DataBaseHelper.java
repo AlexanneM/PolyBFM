@@ -66,4 +66,16 @@ public class DataBaseHelper {
         db.execSQL("INSERT INTO Issue (title, reporter, emergency, category, place, date, photo, viewed, deleted) VALUES ('"+issue.getTitle()+"', '"+issue.getReporter()+"', '"+issue.getEmergency()+"', '"+issue.getCategory()+"', '"+issue.getPlace()+"', '"+issue.getDate()+"', '"+issue.getPathToPhoto()+"', '"+"0"+"', '"+"0"+"')");
         db.close();
     }
+
+    public void deleteEvent(int id){
+        openDB();
+        db.execSQL("UPDATE Issue SET deleted = 1 WHERE _id = "+id);
+        db.close();
+    }
+
+    public void viewEvent(int id){
+        openDB();
+        db.execSQL("UPDATE Issue SET viewed = 1 WHERE _id = "+id);
+        db.close();
+    }
 }
