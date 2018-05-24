@@ -4,7 +4,10 @@
     xmlns:app2="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp">
+    android:padding="16dp"
+    android:descendantFocusability="blocksDescendants"
+    android:clickable="false"
+    android:focusable="false">
 
     <ImageView
         android:id="@+id/photoVisu"
@@ -12,14 +15,16 @@
         android:layout_height="match_parent"
         android:layout_alignParentEnd="true"
         android:layout_below="@id/imageNewIncidentVisu"
-        app2:srcCompat="@drawable/appareil_photo" />
+        app2:srcCompat="@drawable/appareil_photo"
+        android:clickable="false"/>
 
     <TextView
         android:id="@+id/titreVisu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:layout_below="@id/imageCategorieVisu" />
+        android:layout_below="@id/imageCategorieVisu"
+        android:clickable="false"/>
 
     <ImageView
         android:id="@+id/imageCategorieVisu"
@@ -27,28 +32,32 @@
         android:layout_height="75dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        app2:srcCompat="@mipmap/ic_launcher" />
+        app2:srcCompat="@mipmap/ic_launcher"
+        android:clickable="false"/>
 
     <TextView
         android:id="@+id/lieuVisu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:layout_below="@id/titreVisu" />
+        android:layout_below="@id/titreVisu"
+        android:clickable="false"/>
 
     <TextView
         android:id="@+id/urgenceVisu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:layout_below="@id/lieuVisu" />
+        android:layout_below="@id/lieuVisu"
+        android:clickable="false"/>
 
     <TextView
         android:id="@+id/dateVisu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:layout_below="@id/urgenceVisu" />
+        android:layout_below="@id/urgenceVisu"
+        android:clickable="false"/>
 
     <ImageButton
         android:id="@+id/boutonSupprimer"
@@ -56,7 +65,8 @@
         android:layout_height="75dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
-        app2:srcCompat="@drawable/poubelle" />
+        app2:srcCompat="@drawable/poubelle"
+        android:clickable="false"/>
 
     <ImageView
         android:id="@+id/imageNewIncidentVisu"
@@ -64,5 +74,6 @@
         android:layout_alignParentTop="true"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        app2:srcCompat="@drawable/logo_notif"/>
+        app2:srcCompat="@drawable/logo_notif"
+        android:clickable="false"/>
 </RelativeLayout>
