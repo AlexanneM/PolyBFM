@@ -3,7 +3,6 @@ package fr.unice.polytech.polybfm;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -21,8 +20,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
-import android.widget.TextView;
-import android.widget.Toast;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -60,7 +57,7 @@ public class DeclarationFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         final View rootView = inflater.inflate(R.layout.fragment_declaration, container, false);
@@ -90,8 +87,8 @@ public class DeclarationFragment extends Fragment {
                 ISSUE_DATE = temp.substring(0,16);
                 ISSUE_PHOTO = photoPath;
 
-                addEvent();
-                //( (TextView) rootView.findViewById(R.id.labelLieu)).setText("Test");
+                Issue issue = new Issue(0,ISSUE_TITLE,ISSUE_REPORTER,ISSUE_EMERGENCY,ISSUE_CATEGORY,ISSUE_PLACE,ISSUE_DATE,ISSUE_PHOTO,false,false);
+                new DataBaseHelper(getContext()).addNewEvent(issue);
             }
         });
         imageButton = rootView.findViewById(R.id.prendrePhoto);
@@ -158,13 +155,6 @@ public class DeclarationFragment extends Fragment {
 
         }
         return rootView;
-    }
-
-    private void addEvent(){
-        DatabaseHandler handler = new DatabaseHandler(getActivity().getApplicationContext(), "DBpolyBFM", null, 3);
-        SQLiteDatabase db = handler.getWritableDatabase();
-        db.execSQL("INSERT INTO Issue (title, reporter, emergency, category, place, date, photo, viewed, deleted) VALUES ('"+ISSUE_TITLE+"', '"+ISSUE_REPORTER+"', '"+ISSUE_EMERGENCY+"', '"+ISSUE_CATEGORY+"', '"+ISSUE_PLACE+"', '"+ISSUE_DATE+"', '"+ISSUE_PHOTO+"', '"+ISSUE_VIEWED+"', '"+ISSUE_DELETED+"')");
-        db.close();
     }
 
     @Override
