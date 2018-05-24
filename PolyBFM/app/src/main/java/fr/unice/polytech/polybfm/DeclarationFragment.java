@@ -99,7 +99,7 @@ public class DeclarationFragment extends Fragment {
         });
         imageButton = rootView.findViewById(R.id.prendrePhoto);
         photo = rootView.findViewById(R.id.photo);
-        photo.setImageDrawable(getResources().getDrawable(R.drawable.ic_launcher_background));
+        photo.setImageDrawable(getResources().getDrawable(R.drawable.appareil_photo));
 
         if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
             requestPermissions(new String[] { Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE }, 0);
