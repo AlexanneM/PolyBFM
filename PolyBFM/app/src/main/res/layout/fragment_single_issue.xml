@@ -44,8 +44,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_below="@id/imageCategorieVisu"
-        android:text="URGENCE"
-        android:textColor="@color/cardview_dark_background"/>
+        android:text="URGENCE" />
 
     <TextView
         android:id="@+id/dateVisu"
