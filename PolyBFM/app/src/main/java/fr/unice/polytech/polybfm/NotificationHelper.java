@@ -5,8 +5,6 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.support.v4.app.NotificationCompat;
 
 /**
@@ -32,7 +30,7 @@ public class NotificationHelper {
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         PendingIntent pendingIntent = PendingIntent.getActivity(currentContext, 0, intent, 0);
 
-        newEvents = numberOfIssues();
+        newEvents = new DataBaseHelper(currentContext).numberOfIssues();
 
         myNotification = new NotificationCompat.Builder(currentContext)
                 .setSmallIcon(R.drawable.logo_notif)
@@ -46,15 +44,5 @@ public class NotificationHelper {
 
 
         ( (NotificationManager) currentContext.getSystemService(currentContext.NOTIFICATION_SERVICE)).notify(1,myNotification);
-    }
-
-    private int numberOfIssues(){
-        DatabaseHandler handler = new DatabaseHandler(currentContext, "DBpolyBFM", null, 3);
-        SQLiteDatabase db = handler.getWritableDatabase();
-        Cursor cursor = db.rawQuery("SELECT COUNT(*) AS _id FROM Issue WHERE viewed = 0",null);
-        cursor.moveToFirst();
-        int x = cursor.getInt(0);
-        db.close();
-        return x;
     }
 }

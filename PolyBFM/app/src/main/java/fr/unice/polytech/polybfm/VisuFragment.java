@@ -1,16 +1,15 @@
 package fr.unice.polytech.polybfm;
 
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -48,41 +47,31 @@ public class VisuFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
         try{
-            List<Issue> liste = getIssuesFromDB();
+            List<Issue> liste = new DataBaseHelper(getContext()).getCurrentIssues();
             visualisationAdapter = new VisualisationAdapter(getActivity().getApplicationContext(), liste);
             ((ListView) getActivity().findViewById(R.id.listView)).setAdapter(visualisationAdapter);
+            ((ListView) getActivity().findViewById(R.id.listView)).setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    Intent intent = new Intent(getContext(),DetailActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_PREVIOUS_IS_TOP);
+                    Issue issue = (Issue) parent.getItemAtPosition(position);
+                    intent.putExtra("key",issue.getKey());
+                    intent.putExtra("title",issue.getTitle());
+                    intent.putExtra("reporter",issue.getReporter());
+                    intent.putExtra("emergency",issue.getEmergency());
+                    intent.putExtra("category",issue.getCategory());
+                    intent.putExtra("place",issue.getPlace());
+                    intent.putExtra("date",issue.getDate());
+                    intent.putExtra("pathToPhoto",issue.getPathToPhoto());
+                    intent.putExtra("view",issue.isViewed());
+                    intent.putExtra("deleted",issue.isDeleted());
+                    startActivity(intent);
+
+                }
+            });
         }catch (Exception e){}
-    }
-
-
-
-    private List<Issue> getIssuesFromDB(){
-        List<Issue> liste = new ArrayList<>();
-
-        DatabaseHandler handler = new DatabaseHandler(this.getContext(), "DBpolyBFM", null, 3);
-        SQLiteDatabase db = handler.getWritableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM Issue WHERE deleted = 0",null);
-        cursor.moveToFirst();
-
-        while (! cursor.isAfterLast()) {
-            int key = cursor.getInt(0);
-            String title = cursor.getString(1);
-            String reporter = cursor.getString(2);
-            String emergency = cursor.getString(3);
-            String category = cursor.getString(4);
-            String place = cursor.getString(5);
-            String date = cursor.getString(6);
-            String pathToPhoto = cursor.getString(7);
-            boolean viewed = cursor.getInt(8)==1;
-            boolean deleted = cursor.getInt(9)==1;
-
-            Issue issue = new Issue(key, title, reporter, emergency, category, place, date, pathToPhoto, viewed, deleted);
-            liste.add(issue);
-            cursor.moveToNext();
-        }
-        cursor.close();
-        db.close();
-        return liste;
     }
 }
