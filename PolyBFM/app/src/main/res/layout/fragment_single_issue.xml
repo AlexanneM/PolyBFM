@@ -59,7 +59,11 @@
         <ImageView
             android:id="@+id/photoVisu"
             android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:padding="0dp"/>
+            android:layout_height="0dp" />
+
+        <ImageButton
+            android:id="@+id/boutonSupprimer"
+            android:layout_width="0dp"
+            android:layout_height="0dp"/>
     </RelativeLayout>
 </android.support.v7.widget.CardView>
