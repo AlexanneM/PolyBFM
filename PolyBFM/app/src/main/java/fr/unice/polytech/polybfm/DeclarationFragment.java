@@ -20,6 +20,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -93,7 +94,7 @@ public class DeclarationFragment extends Fragment {
         });
         imageButton = rootView.findViewById(R.id.prendrePhoto);
         photo = rootView.findViewById(R.id.photo);
-
+        photo.setImageDrawable(getResources().getDrawable(R.drawable.appareil_photo));
 
         if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
             requestPermissions(new String[] { Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE }, 0);
@@ -147,10 +148,9 @@ public class DeclarationFragment extends Fragment {
 
         if (savedInstanceState != null) {
             //if there is a bundle, use the saved image resource (if one is there)
-            bitmap = savedInstanceState.getParcelable("BitmapImage");
-            if(bitmap != null){
-                photo.setImageBitmap(bitmap);
-                photoPath = savedInstanceState.getString("path_to_picture");
+            photoPath = savedInstanceState.getString("path_to_picture");
+            if(photoPath != null){
+                photo.setImageBitmap(BitmapFactory.decodeFile(photoPath));
             }
 
         }
@@ -162,7 +162,13 @@ public class DeclarationFragment extends Fragment {
 
         if(requestCode==10 && resultCode==RESULT_OK){
             galleryAddPic();
-            bitmap = BitmapFactory.decodeFile(photoPath);
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            BitmapFactory.Options opt = new BitmapFactory.Options();
+            opt.inSampleSize = 8;
+            final Bitmap image = BitmapFactory.decodeFile(photoPath, opt);
+            image.compress(Bitmap.CompressFormat.JPEG, 20, baos);
+            byte[] bitmapdata = baos.toByteArray();
+            bitmap = BitmapFactory.decodeByteArray(bitmapdata, 0, bitmapdata.length);
             photo.setImageBitmap(BitmapFactory.decodeFile(photoPath));
 
         }
@@ -206,8 +212,7 @@ public class DeclarationFragment extends Fragment {
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        if(bitmap != null){
-            outState.putParcelable("BitmapImage", bitmap);
+        if(photoPath != null){
             outState.putString("path_to_picture", photoPath);
         }
 
