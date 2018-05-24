@@ -1,8 +1,6 @@
 package fr.unice.polytech.polybfm;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -17,8 +15,6 @@ import java.util.List;
 
 
 public class VisualisationAdapter extends ArrayAdapter<Issue> {
-    private Bitmap bitmap;
-
     VisualisationAdapter(Context context, List<Issue> issues) {
         super(context, 0, issues);
     }
@@ -42,7 +38,6 @@ public class VisualisationAdapter extends ArrayAdapter<Issue> {
         ImageView newIncident = convertView.findViewWithTag(R.id.imageNewIncidentVisu);
         TextView urgence = convertView.findViewById(R.id.urgenceVisu);
         TextView date = convertView.findViewById(R.id.dateVisu);
-        ImageView photo = convertView.findViewById(R.id.photoVisu);
 
         assert issue != null;
         String categorie = issue.getCategory();
@@ -84,10 +79,6 @@ public class VisualisationAdapter extends ArrayAdapter<Issue> {
         }
 
         date.setText(issue.getDate());
-
-        String pathToPhoto = issue.getPathToPhoto();
-        bitmap = BitmapFactory.decodeFile(pathToPhoto);
-        photo.setImageBitmap(bitmap);
 
         return convertView;
     }
