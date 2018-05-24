@@ -16,4 +16,6 @@
     <string name="déclarer">Déclarer</string>
     <string name="prendre_une_photo">Photo</string>
     <string name="photo_depuis_gallerie">Gallerie</string>
+    <string name="notif_titre">Nouveaux événements</string>
+    <string name="notif_texte"> nouveaux événements déclarés</string>
 </resources>

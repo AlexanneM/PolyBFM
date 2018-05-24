@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.support.annotation.StringRes;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
@@ -56,8 +57,8 @@ public class TestNotifFragment extends Fragment {
                         .setSmallIcon(R.drawable.logo_notif)
                         .setDefaults(Notification.DEFAULT_ALL)
                         .setPriority(NotificationCompat.PRIORITY_HIGH)
-                        .setContentTitle("Nouveaux événements")
-                        .setContentText(""+x+" nouveaux événements déclarés" )
+                        .setContentTitle(getResources().getString(R.string.notif_titre))
+                        .setContentText(""+x+getResources().getString(R.string.notif_texte) )
                         .setContentIntent(pendingIntent)
                         .setAutoCancel(true)
                         .build();
