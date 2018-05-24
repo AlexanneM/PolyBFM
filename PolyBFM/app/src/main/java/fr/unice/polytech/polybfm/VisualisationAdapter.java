@@ -39,10 +39,10 @@ public class VisualisationAdapter extends ArrayAdapter<Issue> {
         ImageView imageCategorie = convertView.findViewById(R.id.imageCategorieVisu);
         TextView titre = convertView.findViewById(R.id.titreVisu);
         TextView lieu = convertView.findViewById(R.id.lieuVisu);
-        ImageView newIncident = convertView.findViewWithTag(R.id.imageNewIncidentVisu);
         TextView urgence = convertView.findViewById(R.id.urgenceVisu);
         TextView date = convertView.findViewById(R.id.dateVisu);
         ImageView photo = convertView.findViewById(R.id.photoVisu);
+        ImageView notViewed = convertView.findViewById(R.id.imageNewIncidentVisu);
 
         assert issue != null;
         String categorie = issue.getCategory();
@@ -67,13 +67,6 @@ public class VisualisationAdapter extends ArrayAdapter<Issue> {
         titre.setText(issue.getTitle());
         lieu.setText(issue.getPlace());
 
-        /*newIncident.setImageDrawable(getContext().getResources().getDrawable(R.drawable.logo_notif));
-        if (issue.isViewed()) {
-            newIncident.setVisibility(View.INVISIBLE);
-        } else {
-            newIncident.setVisibility(View.VISIBLE);
-        }*/
-
         urgence.setText(issue.getEmergency());
         if (issue.getEmergency().endsWith("faible")) {
             urgence.setTextColor(Color.GREEN);
@@ -85,9 +78,18 @@ public class VisualisationAdapter extends ArrayAdapter<Issue> {
 
         date.setText(issue.getDate());
 
-        String pathToPhoto = issue.getPathToPhoto();
-        bitmap = BitmapFactory.decodeFile(pathToPhoto);
-        photo.setImageBitmap(bitmap);
+        try{
+            String pathToPhoto = issue.getPathToPhoto();
+            bitmap = BitmapFactory.decodeFile(pathToPhoto);
+            photo.setImageBitmap(bitmap);
+        }catch (Exception e){}
+
+        notViewed.setImageResource(R.drawable.logo_notif);
+        if (issue.isViewed()) {
+            notViewed.setVisibility(View.INVISIBLE);
+        } else {
+            notViewed.setVisibility(View.VISIBLE);
+        }
 
         return convertView;
     }
