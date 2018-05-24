@@ -20,7 +20,7 @@ public class DataBaseHelper {
     }
 
     private void openDB(){
-        DatabaseHandler handler = new DatabaseHandler(context, "DBpolyBFM", null, 3);
+        DatabaseHandler handler = new DatabaseHandler(context, "DBpolyBFM", null, 4);
         db = handler.getWritableDatabase();
     }
 
