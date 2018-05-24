@@ -49,10 +49,9 @@
     <ImageView
         android:id="@+id/photoVisu"
         android:layout_width="match_parent"
-        android:layout_height="250dp"
+        android:layout_height="match_parent"
         android:layout_below="@id/dateVisu"
-        app2:srcCompat="@drawable/appareil_photo"
-        android:layout_above="@id/boutonSupprimer"/>
+        app2:srcCompat="@drawable/appareil_photo"/>
 
     <ImageButton
         android:id="@+id/boutonSupprimer"
