@@ -3,6 +3,7 @@ package fr.unice.polytech.polybfm;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -74,6 +75,14 @@ public class VisualisationAdapter extends ArrayAdapter<Issue> {
         }
 
         urgence.setText(issue.getEmergency());
+        if (issue.getEmergency().endsWith("faible")) {
+            urgence.setTextColor(Color.GREEN);
+        } else if (issue.getEmergency().endsWith("moyenne")) {
+            urgence.setTextColor(Color.YELLOW);
+        } else if (issue.getEmergency().endsWith("forte")) {
+            urgence.setTextColor(Color.RED);
+        }
+
         date.setText(issue.getDate());
 
         String pathToPhoto = issue.getPathToPhoto();
