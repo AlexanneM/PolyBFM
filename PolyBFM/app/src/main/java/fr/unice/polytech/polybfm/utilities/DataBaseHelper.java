@@ -29,7 +29,7 @@ public class DataBaseHelper {
     public List<Issue> getCurrentIssues(){
         List<Issue> liste = new ArrayList<>();
         openDB();
-        Cursor cursor = db.rawQuery("SELECT * FROM Issue WHERE deleted = 0",null);
+        Cursor cursor = db.rawQuery("SELECT * FROM Issue WHERE deleted = 0 ORDER BY _id DESC",null);
         cursor.moveToFirst();
 
         while (! cursor.isAfterLast()) {
