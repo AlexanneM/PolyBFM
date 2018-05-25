@@ -1,12 +1,15 @@
 package fr.unice.polytech.polybfm.fragments;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Environment;
+import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
@@ -22,7 +25,10 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -148,7 +154,9 @@ public class DeclarationFragment extends Fragment {
 
                 if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
                     Intent gallerypickerIntent = new Intent(Intent.ACTION_PICK);
+
                     gallerypickerIntent.setType("image/*");
+
                     startActivityForResult(gallerypickerIntent, 20);
                 }
             }
@@ -185,7 +193,17 @@ public class DeclarationFragment extends Fragment {
             bitmap = null;
             if(intent!=null){
                 try{
+                    File photoFile = getOutputMediaFile();
+                    photoPath = photoFile.getAbsolutePath();
+                    InputStream inputStream = getActivity().getApplicationContext().getContentResolver().openInputStream(intent.getData());
+                    FileOutputStream fileOutputStream = new FileOutputStream(photoFile);
+                    copyStream(inputStream, fileOutputStream);
+                    fileOutputStream.close();
+                    inputStream.close();
+
+
                     bitmap = MediaStore.Images.Media.getBitmap(getActivity().getApplicationContext().getContentResolver(),intent.getData());
+
                 }catch(IOException e){
                     e.printStackTrace();
                 }
@@ -225,6 +243,16 @@ public class DeclarationFragment extends Fragment {
             outState.putString("path_to_picture", photoPath);
         }
 
+    }
+
+    public static void copyStream(InputStream input, OutputStream output)
+            throws IOException {
+
+        byte[] buffer = new byte[1024];
+        int bytesRead;
+        while ((bytesRead = input.read(buffer)) != -1) {
+            output.write(buffer, 0, bytesRead);
+        }
     }
 
 }
